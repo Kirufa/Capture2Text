@@ -122,7 +122,7 @@ PIX *PreProcess::convertImageToPix(QImage &image)
     QByteArray ba;
     QBuffer buffer(&ba);
     buffer.open(QIODevice::WriteOnly);
-    image.save(&buffer, "TIF");
+    image.save(&buffer, "BMP");
 
     PIX *pixs = pixReadMem((const unsigned char*)ba.data(), ba.size());
 
@@ -541,7 +541,7 @@ PIX *PreProcess::extractTextBlock(PIX *pixs, int pt_x, int pt_y, int lookahead, 
 #endif
 
     float pixelAvg = 0.0f;
-    status = pixAverageInRect(binarizeForNegPixs, &negRect, &pixelAvg);
+    status = pixAverageInRect(binarizeForNegPixs, NULL, &negRect, 0, 255, 1, &pixelAvg);
     pixDestroy(&binarizeForNegPixs);
 
     // qDebug() << "Pixel Avg: " << pixelAvg;
